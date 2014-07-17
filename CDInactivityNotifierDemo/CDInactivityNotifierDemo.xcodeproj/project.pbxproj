@@ -1,0 +1,473 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D49B9B731977C7DE002D86B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49B9B721977C7DE002D86B5 /* Foundation.framework */; };
+		D49B9B751977C7DE002D86B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49B9B741977C7DE002D86B5 /* CoreGraphics.framework */; };
+		D49B9B771977C7DE002D86B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49B9B761977C7DE002D86B5 /* UIKit.framework */; };
+		D49B9B7D1977C7DE002D86B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D49B9B7B1977C7DE002D86B5 /* InfoPlist.strings */; };
+		D49B9B7F1977C7DE002D86B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B9B7E1977C7DE002D86B5 /* main.m */; };
+		D49B9B831977C7DE002D86B5 /* CDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B9B821977C7DE002D86B5 /* CDAppDelegate.m */; };
+		D49B9B851977C7DE002D86B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D49B9B841977C7DE002D86B5 /* Images.xcassets */; };
+		D49B9B8C1977C7DE002D86B5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49B9B8B1977C7DE002D86B5 /* XCTest.framework */; };
+		D49B9B8D1977C7DE002D86B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49B9B721977C7DE002D86B5 /* Foundation.framework */; };
+		D49B9B8E1977C7DE002D86B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49B9B761977C7DE002D86B5 /* UIKit.framework */; };
+		D49B9B961977C7DE002D86B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D49B9B941977C7DE002D86B5 /* InfoPlist.strings */; };
+		D49B9B981977C7DE002D86B5 /* CDInactivityNotifierDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B9B971977C7DE002D86B5 /* CDInactivityNotifierDemoTests.m */; };
+		D49B9BA31977C805002D86B5 /* CDMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B9BA21977C805002D86B5 /* CDMainVC.m */; };
+		D49B9BA51977C829002D86B5 /* CDMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D49B9BA41977C829002D86B5 /* CDMainView.xib */; };
+		D49B9BA81977CB56002D86B5 /* CDInactivityNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B9BA71977CB56002D86B5 /* CDInactivityNotifier.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D49B9B8F1977C7DE002D86B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D49B9B671977C7DE002D86B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D49B9B6E1977C7DE002D86B5;
+			remoteInfo = CDInactivityNotifierDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D49B9B6F1977C7DE002D86B5 /* CDInactivityNotifierDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDInactivityNotifierDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D49B9B721977C7DE002D86B5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D49B9B741977C7DE002D86B5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D49B9B761977C7DE002D86B5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D49B9B7A1977C7DE002D86B5 /* CDInactivityNotifierDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CDInactivityNotifierDemo-Info.plist"; sourceTree = "<group>"; };
+		D49B9B7C1977C7DE002D86B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D49B9B7E1977C7DE002D86B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D49B9B801977C7DE002D86B5 /* CDInactivityNotifierDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CDInactivityNotifierDemo-Prefix.pch"; sourceTree = "<group>"; };
+		D49B9B811977C7DE002D86B5 /* CDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CDAppDelegate.h; sourceTree = "<group>"; };
+		D49B9B821977C7DE002D86B5 /* CDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CDAppDelegate.m; sourceTree = "<group>"; };
+		D49B9B841977C7DE002D86B5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D49B9B8A1977C7DE002D86B5 /* CDInactivityNotifierDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CDInactivityNotifierDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D49B9B8B1977C7DE002D86B5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D49B9B931977C7DE002D86B5 /* CDInactivityNotifierDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CDInactivityNotifierDemoTests-Info.plist"; sourceTree = "<group>"; };
+		D49B9B951977C7DE002D86B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D49B9B971977C7DE002D86B5 /* CDInactivityNotifierDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CDInactivityNotifierDemoTests.m; sourceTree = "<group>"; };
+		D49B9BA11977C805002D86B5 /* CDMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMainVC.h; sourceTree = "<group>"; };
+		D49B9BA21977C805002D86B5 /* CDMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMainVC.m; sourceTree = "<group>"; };
+		D49B9BA41977C829002D86B5 /* CDMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CDMainView.xib; sourceTree = "<group>"; };
+		D49B9BA61977CB56002D86B5 /* CDInactivityNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDInactivityNotifier.h; path = ../../CDInactivityNotifier.h; sourceTree = "<group>"; };
+		D49B9BA71977CB56002D86B5 /* CDInactivityNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDInactivityNotifier.m; path = ../../CDInactivityNotifier.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D49B9B6C1977C7DE002D86B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D49B9B751977C7DE002D86B5 /* CoreGraphics.framework in Frameworks */,
+				D49B9B771977C7DE002D86B5 /* UIKit.framework in Frameworks */,
+				D49B9B731977C7DE002D86B5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D49B9B871977C7DE002D86B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D49B9B8C1977C7DE002D86B5 /* XCTest.framework in Frameworks */,
+				D49B9B8E1977C7DE002D86B5 /* UIKit.framework in Frameworks */,
+				D49B9B8D1977C7DE002D86B5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D49B9B661977C7DE002D86B5 = {
+			isa = PBXGroup;
+			children = (
+				D49B9B781977C7DE002D86B5 /* CDInactivityNotifierDemo */,
+				D49B9B911977C7DE002D86B5 /* CDInactivityNotifierDemoTests */,
+				D49B9B711977C7DE002D86B5 /* Frameworks */,
+				D49B9B701977C7DE002D86B5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D49B9B701977C7DE002D86B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D49B9B6F1977C7DE002D86B5 /* CDInactivityNotifierDemo.app */,
+				D49B9B8A1977C7DE002D86B5 /* CDInactivityNotifierDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D49B9B711977C7DE002D86B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D49B9B721977C7DE002D86B5 /* Foundation.framework */,
+				D49B9B741977C7DE002D86B5 /* CoreGraphics.framework */,
+				D49B9B761977C7DE002D86B5 /* UIKit.framework */,
+				D49B9B8B1977C7DE002D86B5 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D49B9B781977C7DE002D86B5 /* CDInactivityNotifierDemo */ = {
+			isa = PBXGroup;
+			children = (
+				D49B9BA61977CB56002D86B5 /* CDInactivityNotifier.h */,
+				D49B9BA71977CB56002D86B5 /* CDInactivityNotifier.m */,
+				D49B9B811977C7DE002D86B5 /* CDAppDelegate.h */,
+				D49B9B821977C7DE002D86B5 /* CDAppDelegate.m */,
+				D49B9B841977C7DE002D86B5 /* Images.xcassets */,
+				D49B9B791977C7DE002D86B5 /* Supporting Files */,
+				D49B9BA11977C805002D86B5 /* CDMainVC.h */,
+				D49B9BA21977C805002D86B5 /* CDMainVC.m */,
+				D49B9BA41977C829002D86B5 /* CDMainView.xib */,
+			);
+			path = CDInactivityNotifierDemo;
+			sourceTree = "<group>";
+		};
+		D49B9B791977C7DE002D86B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D49B9B7A1977C7DE002D86B5 /* CDInactivityNotifierDemo-Info.plist */,
+				D49B9B7B1977C7DE002D86B5 /* InfoPlist.strings */,
+				D49B9B7E1977C7DE002D86B5 /* main.m */,
+				D49B9B801977C7DE002D86B5 /* CDInactivityNotifierDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D49B9B911977C7DE002D86B5 /* CDInactivityNotifierDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				D49B9B971977C7DE002D86B5 /* CDInactivityNotifierDemoTests.m */,
+				D49B9B921977C7DE002D86B5 /* Supporting Files */,
+			);
+			path = CDInactivityNotifierDemoTests;
+			sourceTree = "<group>";
+		};
+		D49B9B921977C7DE002D86B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D49B9B931977C7DE002D86B5 /* CDInactivityNotifierDemoTests-Info.plist */,
+				D49B9B941977C7DE002D86B5 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D49B9B6E1977C7DE002D86B5 /* CDInactivityNotifierDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D49B9B9B1977C7DE002D86B5 /* Build configuration list for PBXNativeTarget "CDInactivityNotifierDemo" */;
+			buildPhases = (
+				D49B9B6B1977C7DE002D86B5 /* Sources */,
+				D49B9B6C1977C7DE002D86B5 /* Frameworks */,
+				D49B9B6D1977C7DE002D86B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CDInactivityNotifierDemo;
+			productName = CDInactivityNotifierDemo;
+			productReference = D49B9B6F1977C7DE002D86B5 /* CDInactivityNotifierDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D49B9B891977C7DE002D86B5 /* CDInactivityNotifierDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D49B9B9E1977C7DE002D86B5 /* Build configuration list for PBXNativeTarget "CDInactivityNotifierDemoTests" */;
+			buildPhases = (
+				D49B9B861977C7DE002D86B5 /* Sources */,
+				D49B9B871977C7DE002D86B5 /* Frameworks */,
+				D49B9B881977C7DE002D86B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D49B9B901977C7DE002D86B5 /* PBXTargetDependency */,
+			);
+			name = CDInactivityNotifierDemoTests;
+			productName = CDInactivityNotifierDemoTests;
+			productReference = D49B9B8A1977C7DE002D86B5 /* CDInactivityNotifierDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D49B9B671977C7DE002D86B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = CD;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Creatd;
+				TargetAttributes = {
+					D49B9B891977C7DE002D86B5 = {
+						TestTargetID = D49B9B6E1977C7DE002D86B5;
+					};
+				};
+			};
+			buildConfigurationList = D49B9B6A1977C7DE002D86B5 /* Build configuration list for PBXProject "CDInactivityNotifierDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D49B9B661977C7DE002D86B5;
+			productRefGroup = D49B9B701977C7DE002D86B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D49B9B6E1977C7DE002D86B5 /* CDInactivityNotifierDemo */,
+				D49B9B891977C7DE002D86B5 /* CDInactivityNotifierDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D49B9B6D1977C7DE002D86B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D49B9B7D1977C7DE002D86B5 /* InfoPlist.strings in Resources */,
+				D49B9B851977C7DE002D86B5 /* Images.xcassets in Resources */,
+				D49B9BA51977C829002D86B5 /* CDMainView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D49B9B881977C7DE002D86B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D49B9B961977C7DE002D86B5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D49B9B6B1977C7DE002D86B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D49B9BA81977CB56002D86B5 /* CDInactivityNotifier.m in Sources */,
+				D49B9BA31977C805002D86B5 /* CDMainVC.m in Sources */,
+				D49B9B7F1977C7DE002D86B5 /* main.m in Sources */,
+				D49B9B831977C7DE002D86B5 /* CDAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D49B9B861977C7DE002D86B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D49B9B981977C7DE002D86B5 /* CDInactivityNotifierDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D49B9B901977C7DE002D86B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D49B9B6E1977C7DE002D86B5 /* CDInactivityNotifierDemo */;
+			targetProxy = D49B9B8F1977C7DE002D86B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D49B9B7B1977C7DE002D86B5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D49B9B7C1977C7DE002D86B5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D49B9B941977C7DE002D86B5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D49B9B951977C7DE002D86B5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D49B9B991977C7DE002D86B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D49B9B9A1977C7DE002D86B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D49B9B9C1977C7DE002D86B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CDInactivityNotifierDemo/CDInactivityNotifierDemo-Prefix.pch";
+				INFOPLIST_FILE = "CDInactivityNotifierDemo/CDInactivityNotifierDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D49B9B9D1977C7DE002D86B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CDInactivityNotifierDemo/CDInactivityNotifierDemo-Prefix.pch";
+				INFOPLIST_FILE = "CDInactivityNotifierDemo/CDInactivityNotifierDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D49B9B9F1977C7DE002D86B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CDInactivityNotifierDemo.app/CDInactivityNotifierDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CDInactivityNotifierDemo/CDInactivityNotifierDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CDInactivityNotifierDemoTests/CDInactivityNotifierDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		D49B9BA01977C7DE002D86B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CDInactivityNotifierDemo.app/CDInactivityNotifierDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CDInactivityNotifierDemo/CDInactivityNotifierDemo-Prefix.pch";
+				INFOPLIST_FILE = "CDInactivityNotifierDemoTests/CDInactivityNotifierDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D49B9B6A1977C7DE002D86B5 /* Build configuration list for PBXProject "CDInactivityNotifierDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D49B9B991977C7DE002D86B5 /* Debug */,
+				D49B9B9A1977C7DE002D86B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D49B9B9B1977C7DE002D86B5 /* Build configuration list for PBXNativeTarget "CDInactivityNotifierDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D49B9B9C1977C7DE002D86B5 /* Debug */,
+				D49B9B9D1977C7DE002D86B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D49B9B9E1977C7DE002D86B5 /* Build configuration list for PBXNativeTarget "CDInactivityNotifierDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D49B9B9F1977C7DE002D86B5 /* Debug */,
+				D49B9BA01977C7DE002D86B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D49B9B671977C7DE002D86B5 /* Project object */;
+}
