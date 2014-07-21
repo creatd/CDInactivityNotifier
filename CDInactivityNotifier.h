@@ -7,6 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Protocol to receive callbacks from CDInactivityNotifier
+ NOTE- Do not make any assumptions regarding threads on which callbacks will be delivered
+ */
 @protocol CDInactivityNotifierListener <NSObject>
 
 @required
@@ -59,12 +63,13 @@
 
 /**
  Deactivates notifier so no detection is carried out and no notifications are produced.
+ All registered observers are preserved but made inactive.
  */
 + (void)deactivate;
 
 /**
  Pauses detection for specified duration. Note that this affects all subscribers.
- When it's activated again, it will start from beginning.
+ When it's activated again, it will reset time back to beginning.
  */
 + (void)disableFor:(NSTimeInterval)duration;
 
