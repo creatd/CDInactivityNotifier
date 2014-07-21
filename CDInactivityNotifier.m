@@ -351,6 +351,23 @@ const static NSString *kkCDStickyTransparentViewNilKey = @"kkCDStickyTransparent
     _timestampLastInteraction = [self.class now] + duration;
 }
 
++ (void)nudge {
+    [[self sharedInstance] nudge];
+}
+
+- (void)nudge {
+    _timestampLastInteraction = [self.class now];
+    _lastNotifiedLongestDuration = -1;
+    
+    if (_isInterestedInUserInteracted) {
+        for (id<CDInactivityNotifierListener> listener in _listenerSubscriptionTimes) {
+            if ([listener respondsToSelector:@selector(userInteracted)]) {
+                [listener userInteracted];
+            }
+        }
+    }
+}
+
 /////////////////////////////////////////////////////////////////////////
 #pragma mark - Private internals
 /////////////////////////////////////////////////////////////////////////

@@ -73,4 +73,10 @@
  */
 + (void)disableFor:(NSTimeInterval)duration;
 
+/**
+ Mimic a touch on the screen
+ (Workaround for cases when touches are not detected by CDInactivityNotifier such as when there is a window above it)
+ */
++ (void)nudge;
+
 @end
