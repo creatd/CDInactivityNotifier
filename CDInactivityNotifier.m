@@ -46,6 +46,8 @@
 
 @implementation CDStickyTransparentView
 
+const static NSString *kkCDStickyTransparentViewNilKey = @"kkCDStickyTransparentViewNilKey";
+
 /////////////////////////////////////////////////////////////////////////
 #pragma mark - Public methods
 /////////////////////////////////////////////////////////////////////////
@@ -133,11 +135,14 @@
     NSTimeInterval _timestampLastInteraction;
     NSTimer *_timerTimeout;
     NSTimeInterval _shortestTimeoutDuration; // Shortest duration that is configured
-    NSMapTable *_listenerSubscriptionTimes; // Mapping listener objects to array of durations
+    NSMapTable *_listenerSubscriptionTimes; // Mapping listener objects to a dictionary of durations (key: key or special null -> value: array of durations)
     NSTimeInterval _lastNotifiedLongestDuration; // Longest subscribed duration that was notified in the last notification iteration
 
     // Flags
     BOOL _isInterestedInUserInteracted; // YES if there is at least one listener interested in userInteracted callback method (for performance reasons)
+    
+    // Race condition prevention
+    NSLock *_lockMapTable;
 }
 
 @end
@@ -156,7 +161,7 @@
     [self setup];
 }
 
-+ (void)subscribeListener:(id<CDInactivityNotifierListener, NSCoding>)listener forDuration:(NSTimeInterval)duration {
++ (void)subscribeListener:(id<CDInactivityNotifierListener>)listener forDuration:(NSTimeInterval)duration withKey:(NSString *)key {
     if (duration < 1) {
         NSLog(@"Error - Cannot add listener for less than 1 second (%f)",duration);
         return;
@@ -165,10 +170,10 @@
         NSLog(@"Error - Listener does not conform to CDInactivityNotifierListener protocol");
         return;
     }
-    return [[self sharedInstance] subscribeListener:listener forDuration:duration];
+    return [[self sharedInstance] subscribeListener:listener forDuration:duration withKey:key];
 }
 
-- (void)subscribeListener:(id<CDInactivityNotifierListener, NSCoding>)listener forDuration:(NSTimeInterval)duration {
+- (void)subscribeListener:(id<CDInactivityNotifierListener>)listener forDuration:(NSTimeInterval)duration withKey:(NSString *)key {
     if (!_listenerSubscriptionTimes) {
         _listenerSubscriptionTimes = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsStrongMemory];
     }
@@ -178,37 +183,94 @@
         [self activateTimeout];
     }
     
-    NSArray *arrTimes = [_listenerSubscriptionTimes objectForKey:listener];
-    if (arrTimes) {
-        NSMutableArray *arrNewTimes = [NSMutableArray arrayWithArray:arrTimes];
-        [arrNewTimes addObject:[NSNumber numberWithFloat:duration]];
-        [_listenerSubscriptionTimes setObject:arrNewTimes forKey:listener];
-    }
-    else {
-        [_listenerSubscriptionTimes setObject:@[[NSNumber numberWithFloat:duration]] forKey:listener];
+    if (key.length <= 0) {
+        key = [NSString stringWithString:kkCDStickyTransparentViewNilKey];
     }
     
-    if (!_isInterestedInUserInteracted && [listener respondsToSelector:@selector(userInteracted)]) {
-        _isInterestedInUserInteracted = YES;
+    void(^block)() = ^{
+        NSDictionary *dictTimes = [_listenerSubscriptionTimes objectForKey:listener];
+        if (dictTimes) {
+            NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dictTimes];
+            NSArray *arrTimesForKey = [dictTimes objectForKey:key];
+            if (arrTimesForKey) {
+                NSMutableArray *newArr = [NSMutableArray arrayWithArray:arrTimesForKey];
+                [newArr addObject:[NSNumber numberWithFloat:duration]];
+                [newDict setObject:newArr forKey:key];
+            }
+            else {
+                [newDict setObject:@[[NSNumber numberWithFloat:duration]] forKey:key];
+            }
+            [_listenerSubscriptionTimes setObject:newDict forKey:listener];
+        }
+        else {
+            NSDictionary *newDict = @{
+                                      key: @[[NSNumber numberWithFloat:duration]]
+                                      };
+            [_listenerSubscriptionTimes setObject:newDict forKey:listener];
+        }
+        
+        if (!_isInterestedInUserInteracted && [listener respondsToSelector:@selector(userInteracted)]) {
+            _isInterestedInUserInteracted = YES;
+        }
+    };
+    
+    // Critical section
+    //---------------------------------------------------------------------
+    if (![_lockMapTable tryLock]) {
+        // You couldn't get the lock
+        // Try in a different thread
+        if ([NSThread isMainThread]) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                [_lockMapTable lock];
+                block();
+                [_lockMapTable unlock];
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_lockMapTable lock];
+                block();
+                [_lockMapTable unlock];
+            });
+        }
     }
+    else {
+        // You got the lock, go ahead
+        block();
+        [_lockMapTable unlock];
+    }
+    //---------------------------------------------------------------------
 }
 
-+ (void)unsubscribeListener:(id<CDInactivityNotifierListener,NSCoding>)listener {
++ (void)unsubscribeListener:(id<CDInactivityNotifierListener>)listener {
 
     return [[self sharedInstance] unsubscribeListener:listener];
 }
 
-- (void)unsubscribeListener:(id<CDInactivityNotifierListener,NSCoding>)listener {
+- (void)unsubscribeListener:(id<CDInactivityNotifierListener>)listener {
+    
+    // Critical section
+    //---------------------------------------------------------------------
+    // debb
+    [_lockMapTable lock];
     
     [_listenerSubscriptionTimes removeObjectForKey:listener];
+    
+    [_lockMapTable unlock];
+    //---------------------------------------------------------------------
     
     // Recalculate shortest duration time
     NSTimeInterval shortestDuration = -1;
     for (id<CDInactivityNotifierListener> otherListener in _listenerSubscriptionTimes) {
-        NSArray *arrTimes = [_listenerSubscriptionTimes objectForKey:otherListener];
-        for (NSNumber *time in arrTimes) {
-            if (shortestDuration == -1 || time.floatValue < shortestDuration) {
-                shortestDuration = time.floatValue;
+        NSDictionary *dictTimes = [_listenerSubscriptionTimes objectForKey:otherListener];
+        
+        for (NSString *key in dictTimes) {
+            NSArray *arrTimesForKey = [dictTimes objectForKey:key];
+            
+            for (NSNumber *time in arrTimesForKey) {
+                if (shortestDuration == -1 || time.floatValue < shortestDuration) {
+                    shortestDuration = time.floatValue;
+                }
             }
         }
     }
@@ -233,6 +295,97 @@
             _isInterestedInUserInteracted = NO;
         }
     }
+}
+
++ (void)unsubscribeListener:(id<CDInactivityNotifierListener>)listener withKey:(NSString *)key {
+    return [[self sharedInstance] unsubscribeListener:listener withKey:key];
+}
+
+- (void)unsubscribeListener:(id<CDInactivityNotifierListener>)listener withKey:(NSString *)key {
+    NSLog(@"+ unsubscribe");
+    NSDictionary *dictTimes = [_listenerSubscriptionTimes objectForKey:listener];
+    if (key.length <= 0) {
+        key = [NSString stringWithFormat:@"%@",kkCDStickyTransparentViewNilKey];
+    }
+    NSArray *arrTimes = [dictTimes objectForKey:key];
+    
+    if (arrTimes.count > 0) {
+        // Critical section
+        //---------------------------------------------------------------------
+        if (![_lockMapTable tryLock]) {
+            // You couldn't get the lock, try in a different thread
+            if ([NSThread isMainThread]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    [_lockMapTable lock];
+                    NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dictTimes];
+                    [newDict removeObjectForKey:key];
+                    [_listenerSubscriptionTimes setObject:newDict forKey:listener];
+                    [_lockMapTable unlock];
+                });
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_lockMapTable lock];
+                    NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dictTimes];
+                    [newDict removeObjectForKey:key];
+                    [_listenerSubscriptionTimes setObject:newDict forKey:listener];
+                    [_lockMapTable unlock];
+                });
+            }
+        }
+        else {
+            // You got the lock, go ahead
+            NSMutableDictionary *newDict = [NSMutableDictionary dictionaryWithDictionary:dictTimes];
+            [newDict removeObjectForKey:key];
+            [_listenerSubscriptionTimes setObject:newDict forKey:listener];
+        }
+    }
+    
+    if (arrTimes.count > 0) {
+    }
+
+    [_lockMapTable unlock];
+    //---------------------------------------------------------------------
+    
+    NSLog(@". unsubscribe");
+    
+    // Recalculate shortest duration time
+    NSTimeInterval shortestDuration = -1;
+    for (id<CDInactivityNotifierListener> otherListener in _listenerSubscriptionTimes) {
+        NSDictionary *dictTimes = [_listenerSubscriptionTimes objectForKey:otherListener];
+        
+        for (NSString *key in dictTimes) {
+            NSArray *arrTimesForKey = [dictTimes objectForKey:key];
+            
+            for (NSNumber *time in arrTimesForKey) {
+                if (shortestDuration == -1 || time.floatValue < shortestDuration) {
+                    shortestDuration = time.floatValue;
+                }
+            }
+        }
+    }
+    
+    if (shortestDuration != _shortestTimeoutDuration) {
+        // Configure timer again
+        [self activateTimeout];
+    }
+    
+    // Recalculate isInterestedInUserInteracted
+    if (_isInterestedInUserInteracted && [listener respondsToSelector:@selector(userInteracted)]) {
+        
+        // Check if there is another listener interested in this callback
+        BOOL anotherExists = NO;
+        for (id<CDInactivityNotifierListener> otherListener in _listenerSubscriptionTimes) {
+            if ([otherListener respondsToSelector:@selector(userInteracted)]) {
+                anotherExists = YES;
+                break;
+            }
+        }
+        if (!anotherExists) {
+            _isInterestedInUserInteracted = NO;
+        }
+    }
+    NSLog(@"- unsubscribe"); // debb
 }
 
 + (void)deactivate {
@@ -261,13 +414,14 @@
 - (void)setup {
     
     /////////////////////////////////////////
-    // Reset vars
+    // Initialise vars
     /////////////////////////////////////////
     
     _timestampLastInteraction = -1;
     _shortestTimeoutDuration = -1;
     _lastNotifiedLongestDuration = -1;
     _isInterestedInUserInteracted = NO;
+    _lockMapTable = [NSLock new];
     
     /////////////////////////////////////////
     // Listen to Application states
@@ -328,7 +482,12 @@
 }
 
 - (void)checkTimeout:(NSTimer *)timer {
+    NSLog(@"+ check"); // debb
     if (!timer.isValid) {
+        return;
+    }
+
+    if (![_lockMapTable tryLock]) {
         return;
     }
     
@@ -337,17 +496,23 @@
     NSTimeInterval longestNotifiedThisIteration = -1;
     if (timePassed >= _shortestTimeoutDuration) {
         for (id<CDInactivityNotifierListener>listener in _listenerSubscriptionTimes) {
-            NSArray *arrTimes = [_listenerSubscriptionTimes objectForKey:listener];
-            for (NSNumber *time in arrTimes) {
-                NSTimeInterval duration = time.floatValue;
-                if (timePassed >= duration && duration > _lastNotifiedLongestDuration) {
-                    [listener userDidNotInteractFor:timePassed];
-                    longestNotifiedThisIteration = MAX(longestNotifiedThisIteration, duration);
+            NSDictionary *dictTimes = [_listenerSubscriptionTimes objectForKey:listener];
+            for (NSString *key in dictTimes) {
+                NSString *keyToCallback = [key isEqualToString:kkCDStickyTransparentViewNilKey] ? nil : key;
+                NSArray *arrTimesForKey = [dictTimes objectForKey:key];
+                for (NSNumber *time in arrTimesForKey) {
+                    NSTimeInterval duration = time.floatValue;
+                    if (timePassed >= duration && duration > _lastNotifiedLongestDuration) {
+                        [listener userDidNotInteractFor:timePassed key:keyToCallback];
+                        longestNotifiedThisIteration = MAX(longestNotifiedThisIteration, duration);
+                    }
                 }
             }
         }
     }
     _lastNotifiedLongestDuration = MAX(_lastNotifiedLongestDuration, longestNotifiedThisIteration);
+    [_lockMapTable unlock];
+    NSLog(@"- check"); // debb
 }
 
 /////////////////////////////////////////////////////////////////////////

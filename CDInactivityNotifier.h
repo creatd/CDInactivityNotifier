@@ -15,7 +15,7 @@
  Called to notify a certain duration of no interaction.
  Listeners have to subscribe to receive this callback and will receive it once on (or slightly after) the configured duration
  */
-- (void)userDidNotInteractFor:(NSTimeInterval)duration;
+- (void)userDidNotInteractFor:(NSTimeInterval)duration key:(NSString *)key;
 
 @optional
 
@@ -40,15 +40,22 @@
 /**
  Adds listener for specified duration of inactivity.
  Listener will receive a callback when there is no user interaction with the device for specified duration.
+ @param key - Key to be passed back with callback, optional.
  NOTE- It will be active after user first interacts with the device
+ NOTE- If key already exists, it will append (i.e. add one more time for notifying).
  */
-+ (void)subscribeListener:(id<CDInactivityNotifierListener, NSCoding>)listener forDuration:(NSTimeInterval)duration;
++ (void)subscribeListener:(id<CDInactivityNotifierListener>)listener forDuration:(NSTimeInterval)duration withKey:(NSString *)key;
 
 /**
  Unsubscribes listener from further notifications.
  Note that this will remove all subscriptions by the same sender.
  */
-+ (void)unsubscribeListener:(id<CDInactivityNotifierListener, NSCoding>)listener;
++ (void)unsubscribeListener:(id<CDInactivityNotifierListener>)listener;
+
+/**
+ Unsubscribes listener for notifications registered using specified key.
+ */
++ (void)unsubscribeListener:(id<CDInactivityNotifierListener>)listener withKey:(NSString *)key;
 
 /**
  Deactivates notifier so no detection is carried out and no notifications are produced.

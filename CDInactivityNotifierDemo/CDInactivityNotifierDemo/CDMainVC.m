@@ -32,8 +32,8 @@
 #pragma mark - CDInactivityNotifierListener methods
 /////////////////////////////////////////////////////////////////////////
 
-- (void)userDidNotInteractFor:(NSTimeInterval)duration {
-    NSLog(@"inactivity for %f",duration);
+- (void)userDidNotInteractFor:(NSTimeInterval)duration key:(NSString *)key {
+    NSLog(@"inactivity for %f key %@",duration, key);
     
     if (duration >= 2) {
         self.viewGreen1.hidden = NO;
@@ -41,23 +41,26 @@
             self.viewGreen2.hidden = NO;
             if (duration >= 8) {
                 self.viewGreen3.hidden = NO;
-                if (duration >= 16) {
-                    self.viewGreen4.hidden = NO;
-                    if (duration >= 32) {
-                        self.viewGreen5.hidden = NO;
-                        if (duration >= 64) {
-                            self.viewGreen6.hidden = NO;
-                            if (duration >= 100) {
-                                self.viewGreen7.hidden = NO;
-                                if (duration >= 300) {
-                                    self.viewGreen8.hidden = NO;
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
+    }
+    
+    if ([key isEqualToString:@"A"]) {
+        self.viewGreen4.hidden = NO;
+        
+        [CDInactivityNotifier unsubscribeListener:self withKey:@"A"];
+    }
+    else if ([key isEqualToString:@"B"]) {
+        self.viewGreen5.hidden = NO;
+    }
+    else if ([key isEqualToString:@"C"]) {
+        self.viewGreen6.hidden = NO;
+    }
+    else if ([key isEqualToString:@"D"]) {
+        self.viewGreen7.hidden = NO;
+    }
+    else if ([key isEqualToString:@"E"]) {
+        self.viewGreen8.hidden = NO;
     }
 }
 
@@ -81,14 +84,14 @@
     
     [CDInactivityNotifier activate];
     
-    [CDInactivityNotifier subscribeListener:self forDuration:2];
-    [CDInactivityNotifier subscribeListener:self forDuration:4];
-    [CDInactivityNotifier subscribeListener:self forDuration:8];
-    [CDInactivityNotifier subscribeListener:self forDuration:16];
-    [CDInactivityNotifier subscribeListener:self forDuration:32];
-    [CDInactivityNotifier subscribeListener:self forDuration:64];
-    [CDInactivityNotifier subscribeListener:self forDuration:100];
-    [CDInactivityNotifier subscribeListener:self forDuration:300];
+    [CDInactivityNotifier subscribeListener:self forDuration:2 withKey:nil];
+    [CDInactivityNotifier subscribeListener:self forDuration:4 withKey:nil];
+    [CDInactivityNotifier subscribeListener:self forDuration:8 withKey:nil];
+    [CDInactivityNotifier subscribeListener:self forDuration:16 withKey:@"A"];
+    [CDInactivityNotifier subscribeListener:self forDuration:32 withKey:@"B"];
+    [CDInactivityNotifier subscribeListener:self forDuration:64 withKey:@"C"];
+    [CDInactivityNotifier subscribeListener:self forDuration:100 withKey:@"D"];
+    [CDInactivityNotifier subscribeListener:self forDuration:300 withKey:@"E"];
     
     // Uncomment below to see unsubscribe in action
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
