@@ -154,11 +154,11 @@ const static NSString *kkCDStickyTransparentViewNilKey = @"kkCDStickyTransparent
 #pragma mark - Public methods
 /////////////////////////////////////////////////////////////////////////
 
-+ (void)activate {
-    return [[self sharedInstance] activate];
++ (void)enable {
+    return [[self sharedInstance] enable];
 }
 
-- (void)activate {
+- (void)enable {
     _q = dispatch_queue_create("CDInactivityNotifier", NULL);
     dispatch_async(_q, ^{
         [self setup];
@@ -328,11 +328,11 @@ const static NSString *kkCDStickyTransparentViewNilKey = @"kkCDStickyTransparent
     });
 }
 
-+ (void)deactivate {
-    [[CDInactivityNotifier sharedInstance] deactivate];
++ (void)disable {
+    [[CDInactivityNotifier sharedInstance] disable];
 }
 
-- (void)deactivate {
+- (void)disable {
     dispatch_async(_q, ^{
         [_timerTimeout invalidate];
         _timerTimeout = nil;

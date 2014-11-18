@@ -7,6 +7,9 @@
 
 #import <Foundation/Foundation.h>
 
+// TODO- Doesn't work with scroll views (e.g. if I'm scrolling a scroll view, it won't detect my interaction and might mistakenly think I haven't interacted for a while)
+// TODO- Inheriting UIApplication to intercept sendEvent might be a better idea (see here http://stackoverflow.com/questions/8085188/ios-perform-action-after-period-of-inactivity-no-user-interaction)
+
 /**
  Protocol to receive callbacks from CDInactivityNotifier
  NOTE- Do not make any assumptions regarding threads on which callbacks will be delivered
@@ -39,7 +42,7 @@
 /**
  Adds and starts the notifier. This must be used for initialisation.
  */
-+ (void)activate;
++ (void)enable;
 
 /**
  Adds listener for specified duration of inactivity.
@@ -62,10 +65,10 @@
 + (void)unsubscribeListener:(id<CDInactivityNotifierListener>)listener withKey:(NSString *)key;
 
 /**
- Deactivates notifier so no detection is carried out and no notifications are produced.
+ Disables notifier so no detection is carried out and no notifications are produced.
  All registered observers are preserved but made inactive.
  */
-+ (void)deactivate;
++ (void)disable;
 
 /**
  Pauses detection for specified duration. Note that this affects all subscribers.
@@ -76,6 +79,8 @@
 /**
  Mimic a touch on the screen
  (Workaround for cases when touches are not detected by CDInactivityNotifier such as when there is a window above it)
+ 
+ TODO- You shouldn't need this method
  */
 + (void)nudge;
 
