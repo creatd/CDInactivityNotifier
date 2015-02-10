@@ -192,7 +192,7 @@ const static NSString *kkCDStickyTransparentViewNilKey = @"kkCDStickyTransparent
         
         NSString *keyAdjusted = key;
         if (keyAdjusted.length <= 0) {
-            keyAdjusted = [NSString stringWithString:kkCDStickyTransparentViewNilKey];
+            keyAdjusted = [NSString stringWithString:(NSString *)kkCDStickyTransparentViewNilKey];
         }
         
         NSDictionary *dictTimes = [_listenerSubscriptionTimes objectForKey:listener];
@@ -479,7 +479,7 @@ const static NSString *kkCDStickyTransparentViewNilKey = @"kkCDStickyTransparent
             for (id<CDInactivityNotifierListener>listener in _listenerSubscriptionTimes) {
                 NSDictionary *dictTimes = [_listenerSubscriptionTimes objectForKey:listener];
                 for (NSString *key in dictTimes) {
-                    NSString *keyToCallback = [key isEqualToString:kkCDStickyTransparentViewNilKey] ? nil : key;
+                    NSString *keyToCallback = [key isEqualToString:(NSString *)kkCDStickyTransparentViewNilKey] ? nil : key;
                     NSArray *arrTimesForKey = [dictTimes objectForKey:key];
                     for (NSNumber *time in arrTimesForKey) {
                         NSTimeInterval duration = time.floatValue;
